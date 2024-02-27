@@ -74,3 +74,41 @@ test('Test removeItem method', () => {
     }
   );
 });
+
+test('Test updateItem method', () => {
+  testCart.addItem(testItem);
+  testCart.addItem(item3);
+  expect(testCart).toEqual(
+    {
+      items: [
+        {
+          item: testItem,
+          quantity: 1
+        },
+        {
+          item: item3,
+          quantity: 1
+        }
+      ],
+      total: 898.99,
+      discounted: false
+    }
+  );
+  testCart.updateQuantity(item3.name, 3);
+  expect(testCart).toEqual(
+    {
+      items: [
+        {
+          item: testItem,
+          quantity: 1
+        },
+        {
+          item: item3,
+          quantity: 3
+        }
+      ],
+      total: 2496.99,
+      discounted: false
+    }
+  );
+});
