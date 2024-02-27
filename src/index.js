@@ -19,15 +19,23 @@ export default class shoppingCart {
     this.calculateTotal();
   }
   
-  updateQuantity() {
-  
+  updateQuantity(name, quantity) {
+    for (let elem of this.items) {
+      console.log('update 1');
+      if (elem.item.name === name) {
+        elem.quantity = quantity;
+        console.log('update 2');
+        break;
+      }
+    }
+    this.calculateTotal();
   }
 
   calculateTotal() {
     let updatedTotal = 0;
     this.items.forEach((elem) => {
        updatedTotal += elem.item.price * elem.quantity;
-    })
+    });
     this.total = updatedTotal;
   }
 
@@ -47,3 +55,9 @@ myCart.addItem(item2);
 console.log(myCart);
 myCart.removeItem(item1.name);
 console.log(myCart);
+console.log(myCart);
+myCart.addItem(item1, 2);
+myCart.addItem(item3, 3);
+myCart.updateQuantity(item1.name, 4);
+console.log(myCart);
+// console.log(799 * 3 + 99.99);
