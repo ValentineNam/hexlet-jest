@@ -19,7 +19,8 @@ testCart.addItem(testItem);
         }
       ],
       total: 99.99,
-      discounted: false
+      discounted: false,
+      discountCode: null
     }
   );
   testCart.addItem(item1);
@@ -36,7 +37,8 @@ testCart.addItem(testItem);
         }
       ],
       total: 548.99,
-      discounted: false
+      discounted: false,
+      discountCode: null
     }
   );
 });
@@ -57,7 +59,8 @@ test('Test removeItem method', () => {
         }
       ],
       total: 548.99,
-      discounted: false
+      discounted: false,
+      discountCode: null
     }
   );
   testCart.removeItem(testItem.name);
@@ -70,7 +73,8 @@ test('Test removeItem method', () => {
         }
       ],
       total: 449,
-      discounted: false
+      discounted: false,
+      discountCode: null
     }
   );
 });
@@ -91,7 +95,8 @@ test('Test updateItem method', () => {
         }
       ],
       total: 898.99,
-      discounted: false
+      discounted: false,
+      discountCode: null
     }
   );
   testCart.updateQuantity(item3.name, 3);
@@ -108,7 +113,8 @@ test('Test updateItem method', () => {
         }
       ],
       total: 2496.99,
-      discounted: false
+      discounted: false,
+      discountCode: null
     }
   );
 });
@@ -124,7 +130,8 @@ test('Test clearCart method', () => {
           }
         ],
         total: 4798,
-        discounted: false
+        discounted: false,
+        discountCode: null
       }
     );
     testCart.clearCart();
@@ -132,36 +139,71 @@ test('Test clearCart method', () => {
       {
         items: [],
         total: 0,
-        discounted: false
+        discounted: false,
+        discountCode: null
       }
     );
   });
 
-  test('Test applyDiscount method', () => {
-    testCart.addItem(item2, 2);
-      expect(testCart).toEqual(
-        {
-          items: [
-            {
-              item: item2,
-              quantity: 2
-            }
-          ],
-          total: 4798,
-          discounted: false
-        }
-      );
-      testCart.applyDiscount('validCode');
-      expect(testCart).toEqual(
-        {
-          items: {
+test('Test applyDiscount method', () => {
+  testCart.addItem(item2, 2);
+    expect(testCart).toEqual(
+      {
+        items: [
+          {
             item: item2,
             quantity: 2
-          },
-          total: 3598.5,
-          discounted: true,
-          discountCode: 'validCode'
-        }
-      );
-    });
+          }
+        ],
+        total: 4798,
+        discounted: false,
+        discountCode: null
+      }
+    );
+    testCart.applyDiscount('validCode');
+    expect(testCart).toEqual(
+      {
+        items: [
+          {
+            item: item2,
+            quantity: 2
+          }
+        ],
+        total: 3598.5,
+        discounted: true,
+        discountCode: 'validCode'
+      }
+    );
+  });
+
+test('Test applyDiscount method negative test', () => {
+  testCart.addItem(item2, 2);
+    expect(testCart).toEqual(
+      {
+        items: [
+          {
+            item: item2,
+            quantity: 2
+          }
+        ],
+        total: 4798,
+        discounted: false,
+        discountCode: null
+      }
+    );
+    testCart.applyDiscount('invalidCode');
+    expect(testCart).toEqual(
+      {
+        items: [
+          {
+            item: item2,
+            quantity: 2
+          }
+        ],
+        total: 4798,
+        discounted: false,
+        discountCode: null
+      }
+    );
+  });
   
