@@ -114,7 +114,7 @@ test('Test updateItem method', () => {
 });
 
 test('Test clearCart method', () => {
-  testCart.addItem(item2);
+  testCart.addItem(item2, 2);
     expect(testCart).toEqual(
       {
         items: [
@@ -123,7 +123,7 @@ test('Test clearCart method', () => {
             quantity: 2
           }
         ],
-        total: 4398,
+        total: 4798,
         discounted: false
       }
     );
@@ -131,7 +131,7 @@ test('Test clearCart method', () => {
     expect(testCart).toEqual(
       {
         items: [],
-        total: 4398,
+        total: 0,
         discounted: false
       }
     );
