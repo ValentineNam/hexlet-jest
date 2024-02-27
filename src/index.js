@@ -23,8 +23,8 @@ export default class ShoppingCart {
     const foundItem = this.items.find(({ item }) => item.name === name);
 
     if (foundItem) {
-        foundItem.quantity = quantity;
-        this.calculateTotal();
+      foundItem.quantity = quantity;
+      this.calculateTotal();
     }
   }
 
@@ -32,23 +32,22 @@ export default class ShoppingCart {
     this.total = this.items.reduce((acc, elem) => acc + elem.item.price * elem.quantity, 0);
   }
 
-
   clearCart() {
     this.items = [];
     this.total = 0;
   }
 
   applyDiscount(codeName) {
-    const code = codes.find(code => code.name === codeName);
+    const codeObj = codes.find((code) => code.name === codeName);
     const currentDate = new Date();
 
-    if (code && new Date(code.expireDate) > currentDate) {
-        this.total *= (100 - code.percentage) / 100;
-        this.discounted = true;
-        this.discountCode = codeName;
+    if (codeObj && new Date(codeObj.expireDate) > currentDate) {
+      this.total *= (100 - codeObj.percentage) / 100;
+      this.discounted = true;
+      this.discountCode = codeName;
     } else {
-        this.discounted = false;
-        this.discountCode = null;
+      this.discounted = false;
+      this.discountCode = null;
     }
   }
 }
