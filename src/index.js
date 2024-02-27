@@ -1,43 +1,37 @@
-'use strict'
+import { item1, item2, item3 } from './items.js';
+import codes from './codes.js';
 
-import { item1, item2, item3 } from '../src/items.js';
-import { codes } from '../src/codes.js';
-
-export default class shoppingCart {
-  constructor(){
+export default class ShoppingCart {
+  constructor() {
     this.items = [];
     this.total = 0;
     this.discounted = false;
     this.discountCode = null;
   }
-  
+
   addItem(item, quantity = 1) {
-    this.items.push({ item: item, quantity: quantity });
+    this.items.push({ item, quantity });
     this.calculateTotal();
   }
 
   removeItem(name) {
-    this.items = this.items.filter(elem => elem.item.name !== name);
-    this.calculateTotal();
-  }
-  
-  updateQuantity(name, quantity) {
-    for (let elem of this.items) {
-      if (elem.item.name === name) {
-        elem.quantity = quantity;
-        break;
-      }
-    }
+    this.items = this.items.filter((elem) => elem.item.name !== name);
     this.calculateTotal();
   }
 
-  calculateTotal() {
-    let updatedTotal = 0;
-    this.items.forEach((elem) => {
-       updatedTotal += elem.item.price * elem.quantity;
-    });
-    this.total = updatedTotal;
+  updateQuantity(name, quantity) {
+    const foundItem = this.items.find(({ item }) => item.name === name);
+
+    if (foundItem) {
+        foundItem.quantity = quantity;
+        this.calculateTotal();
+    }
   }
+
+  calculateTotal() {
+    this.total = this.items.reduce((acc, elem) => acc + elem.item.price * elem.quantity, 0);
+  }
+
 
   clearCart() {
     this.items = [];
@@ -45,32 +39,21 @@ export default class shoppingCart {
   }
 
   applyDiscount(codeName) {
-    const getCodeDate = (codeName) => {
-      const code = codes.find(elem => elem.name === codeName);
-      return code ? code.expireDate : -1;
-    }
-    const getDiscountPercentage = (codeName) => {
-      const discountCode = codes.find(code => code.name === codeName);
-      if (discountCode) {
-          return discountCode.percentage;
-      }
-    }  
+    const code = codes.find(code => code.name === codeName);
     const currentDate = new Date();
-    const codeDate = new Date(getCodeDate(codeName));
-    if (currentDate < codeDate) {
-      const discountPercent = getDiscountPercentage(codeName);
-      this.total *= (100 - discountPercent) / 100;
-      this.discounted = true;
-      this.discountCode = codeName;
+
+    if (code && new Date(code.expireDate) > currentDate) {
+        this.total *= (100 - code.percentage) / 100;
+        this.discounted = true;
+        this.discountCode = codeName;
     } else {
-      this.discounted = false;
-      this.discountCode = null;
+        this.discounted = false;
+        this.discountCode = null;
     }
   }
 }
 
-
-let myCart = new shoppingCart();
+const myCart = new ShoppingCart();
 myCart.addItem(item1, 2);
 myCart.addItem(item2);
 console.log(myCart);
