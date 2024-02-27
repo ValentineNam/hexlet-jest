@@ -112,3 +112,28 @@ test('Test updateItem method', () => {
     }
   );
 });
+
+test('Test clearCart method', () => {
+  testCart.addItem(item2);
+    expect(testCart).toEqual(
+      {
+        items: [
+          {
+            item: item2,
+            quantity: 2
+          }
+        ],
+        total: 4398,
+        discounted: false
+      }
+    );
+    testCart.clearCart();
+    expect(testCart).toEqual(
+      {
+        items: [],
+        total: 4398,
+        discounted: false
+      }
+    );
+  });
+  
