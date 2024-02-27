@@ -1,2 +1,0 @@
-{"/Users/v.nam/Documents/Projects/0_Hexlet/hexlet-jest/src/index.js": {"path":"/Users/v.nam/Documents/Projects/0_Hexlet/hexlet-jest/src/index.js","statementMap":{"0":{"start":{"line":1,"column":22},"end":{"line":1,"column":54}}},"fnMap":{"0":{"name":"(anonymous_0)","decl":{"start":{"line":1,"column":15},"end":{"line":1,"column":16}},"loc":{"start":{"line":1,"column":22},"end":{"line":1,"column":54}},"line":1}},"branchMap":{},"s":{"0":2},"f":{"0":2},"b":{},"_coverageSchema":"1a1c01bbd47fc00a2c39e90264f33305004495a9","hash":"d65e2bb90c9f03ac977cda702c091d2726e8fb64"}
-}
