@@ -2,18 +2,19 @@ import shoppingCart from '../src/index.js';
 import { item1, item2, item3 } from '../src/items.js';
 
 let testCart = new shoppingCart();
+const testItem = { article: 0, name: 'testName', price: 99.99, currency: 'usd' };
 
 beforeEach(() => {
   testCart = new shoppingCart();
 });
 
 test('Test addItem method', () => {
-testCart.addItem({ article: 0, name: 'testName', price: 99.99, currency: 'usd' });
+testCart.addItem(testItem);
   expect(testCart).toEqual(
     {
       items: [
         {
-          item: { article: 0, name: 'testName', price: 99.99, currency: 'usd' },
+          item: testItem,
           quantity: 1
         }
       ],
@@ -26,15 +27,49 @@ testCart.addItem({ article: 0, name: 'testName', price: 99.99, currency: 'usd' }
     {
       items: [
         {
-          item: { article: 0, name: 'testName', price: 99.99, currency: 'usd' },
+          item: testItem,
           quantity: 1
         },
         {
-          item: { article: 1, name: 'iPhoneSE2020', price: 449, currency: 'usd' },
+          item: item1,
           quantity: 1
         }
       ],
       total: 548.99,
+      discounted: false
+    }
+  );
+});
+
+test('Test removeItem method', () => {
+  testCart.addItem(testItem);
+  testCart.addItem(item1);
+  expect(testCart).toEqual(
+    {
+      items: [
+        {
+          item: testItem,
+          quantity: 1
+        },
+        {
+          item: item1,
+          quantity: 1
+        }
+      ],
+      total: 548.99,
+      discounted: false
+    }
+  );
+  testCart.removeItem(testItem.name);
+  expect(testCart).toEqual(
+    {
+      items: [
+        {
+          item: item1,
+          quantity: 1
+        }
+      ],
+      total: 449,
       discounted: false
     }
   );
