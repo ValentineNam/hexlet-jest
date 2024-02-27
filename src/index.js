@@ -1,12 +1,14 @@
 'use strict'
 
 import { item1, item2, item3 } from '../src/items.js';
+import { codes } from '../src/codes.js';
 
 export default class shoppingCart {
   constructor(){
     this.items = [];
     this.total = 0;
     this.discounted = false;
+    this.discountCode = null;
   }
   
   addItem(item, quantity = 1) {
@@ -40,11 +42,30 @@ export default class shoppingCart {
   clearCart() {
     this.items = [];
     this.total = 0;
-    this.discounted = false;
   }
 
-  applyDiscount() {
-    
+  applyDiscount(codeName) {
+    const getCodeDate = (codeName) => {
+      const code = codes.find(elem => elem.name === codeName);
+      return code ? code.expireDate : -1;
+    }
+    const getDiscountPercentage = (codeName) => {
+      const discountCode = codes.find(code => code.name === codeName);
+      if (discountCode) {
+          return discountCode.percentage;
+      }
+    }  
+    const currentDate = new Date();
+    const codeDate = new Date(getCodeDate(codeName));
+    if (currentDate < codeDate) {
+      const discountPercent = getDiscountPercentage(codeName);
+      this.total *= (100 - discountPercent) / 100;
+      this.discounted = true;
+      this.discountCode = codeName;
+    } else {
+      this.discounted = false;
+      this.discountCode = null;
+    }
   }
 }
 
@@ -59,6 +80,7 @@ myCart.addItem(item1, 2);
 myCart.addItem(item3, 3);
 myCart.updateQuantity(item1.name, 4);
 console.log(myCart);
+myCart.applyDiscount('validCode');
+console.log(myCart);
 myCart.clearCart();
 console.log(myCart);
-console.log(4798 * 0.75);
