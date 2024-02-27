@@ -8,8 +8,8 @@ export default class shoppingCart {
     this.total = 0;
     this.discounted = false;
   }
-  addItem(item) {
-    this.items.push(item);
+  addItem(item, quantity = 1) {
+    this.items.push({ item: item, quantity: quantity });
   }
   removeItem() {}
   updateQuantity() {}

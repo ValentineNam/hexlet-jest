@@ -11,7 +11,10 @@ testCart.addItem({ article: 0, name: 'testName', price: 99.99, currency: 'usd' }
   expect(testCart).toEqual(
     {
       items: [
-        { article: 0, name: 'testName', price: 99.99, currency: 'usd' }
+        {
+          item: { article: 0, name: 'testName', price: 99.99, currency: 'usd' },
+          quantity: 1
+        }
       ],
       total: 0,
       discounted: false
