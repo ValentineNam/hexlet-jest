@@ -17,7 +17,7 @@ testCart.addItem({ article: 0, name: 'testName', price: 99.99, currency: 'usd' }
           quantity: 1
         }
       ],
-      total: 0,
+      total: 99.99,
       discounted: false
     }
   );
@@ -34,7 +34,7 @@ testCart.addItem({ article: 0, name: 'testName', price: 99.99, currency: 'usd' }
           quantity: 1
         }
       ],
-      total: 0,
+      total: 548.99,
       discounted: false
     }
   );
