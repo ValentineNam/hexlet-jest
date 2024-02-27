@@ -136,4 +136,32 @@ test('Test clearCart method', () => {
       }
     );
   });
+
+  test('Test applyDiscount method', () => {
+    testCart.addItem(item2, 2);
+      expect(testCart).toEqual(
+        {
+          items: [
+            {
+              item: item2,
+              quantity: 2
+            }
+          ],
+          total: 4798,
+          discounted: false
+        }
+      );
+      testCart.applyDiscount('validCode');
+      expect(testCart).toEqual(
+        {
+          items: {
+            item: item2,
+            quantity: 2
+          },
+          total: 3598.5,
+          discounted: true,
+          discountCode: 'validCode'
+        }
+      );
+    });
   
