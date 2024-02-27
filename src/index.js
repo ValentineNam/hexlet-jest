@@ -40,7 +40,9 @@ export default class shoppingCart {
   }
 
   clearCart() {
-
+    this.items = [];
+    this.total = 0;
+    this.discounted = false;
   }
 
   applyDiscount() {
@@ -60,4 +62,5 @@ myCart.addItem(item1, 2);
 myCart.addItem(item3, 3);
 myCart.updateQuantity(item1.name, 4);
 console.log(myCart);
-// console.log(799 * 3 + 99.99);
+myCart.clearCart();
+console.log(myCart);
