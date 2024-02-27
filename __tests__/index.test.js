@@ -45,6 +45,29 @@ test('Test addItem method', () => {
   );
 });
 
+test('Test addItem method double for same item', () => {
+  testCart.addItem(item1, 1);
+  testCart.addItem(item2, 2);
+  testCart.addItem(item1, 1);
+  expect(testCart).toEqual(
+    {
+      items: [
+        {
+          item: item1,
+          quantity: 2,
+        },
+        {
+          item: item2,
+          quantity: 2,
+        },
+      ],
+      total: 5696,
+      discounted: false,
+      discountCode: null,
+    },
+  );
+});
+
 test('Test removeItem method', () => {
   testCart.addItem(testItem);
   testCart.addItem(item1);
