@@ -10,7 +10,12 @@ export default class ShoppingCart {
   }
 
   addItem(item, quantity = 1) {
-    this.items.push({ item, quantity });
+    const existingItem = this.items.find(i => i.item === item);
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        this.items.push({ item, quantity });
+    }
     this.calculateTotal();
   }
 
