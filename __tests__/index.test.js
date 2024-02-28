@@ -2,6 +2,7 @@ import ShoppingCart from '../src/index';
 import { item1, item2, item3 } from '../src/items';
 
 let testCart = new ShoppingCart();
+// Вместо "реального" товара добавляем в некоторые проверки тестовый
 const testItem = {
   article: 0, name: 'testName', price: 99.99, currency: 'usd',
 };
@@ -64,6 +65,25 @@ test('Test addItem method double for same item', () => {
       total: 5696,
       discounted: false,
       discountCode: null,
+    },
+  );
+});
+
+test('Test addItem method add -> code -> add -> recalculate total', () => {
+  testCart.addItem(item1, 1);
+  testCart.applyDiscount('validCode');
+  testCart.addItem(item1, 1);
+  expect(testCart).toEqual(
+    {
+      items: [
+        {
+          item: item1,
+          quantity: 2,
+        }
+      ],
+      total: 673.5,
+      discounted: true,
+      discountCode: 'validCode',
     },
   );
 });

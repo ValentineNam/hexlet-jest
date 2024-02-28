@@ -44,6 +44,8 @@ export default class ShoppingCart {
 // Расчет общей суммы, исходя из позиций в корзине (вызывается в большинстве методов)
   calculateTotal() {
     this.total = this.items.reduce((acc, elem) => acc + elem.item.price * elem.quantity, 0);
+// Фикс кейса, когда код добавлен перед тем, как были добавлены еще товары
+    this.applyDiscount(this.discountCode);
   }
 
 // Метод очистки корзины (введенный скидочны код при этом не сбрасывается)
