@@ -48,7 +48,7 @@ export default class ShoppingCart {
     this.applyDiscount(this.discountCode);
   }
 
-// Метод очистки корзины (введенный скидочны код при этом не сбрасывается)
+// Метод очистки корзины (введенный скидочный код при этом не сбрасывается)
   clearCart() {
     this.items = [];
     this.total = 0;
